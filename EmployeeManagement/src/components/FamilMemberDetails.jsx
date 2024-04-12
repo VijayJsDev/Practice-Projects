@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 
-function FamilMemberDetails({ familyMember, onChangeFamilMemberInputField }) {
+function FamilMemberDetails({ familyMember, onChangeFamilMemberInputField, removalOfFamilyMember }) {
   return (
     <>
       <Card>
@@ -65,6 +65,7 @@ function FamilMemberDetails({ familyMember, onChangeFamilMemberInputField }) {
               onChange={onChangeFamilMemberInputField}
             />
           </Form.Group>
+          <Button variant="danger" onClick={(e, index) => removalOfFamilyMember(index)}>Remove</Button>
         </Card.Body>
       </Card>
     </>

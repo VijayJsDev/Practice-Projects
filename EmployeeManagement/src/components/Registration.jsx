@@ -98,6 +98,18 @@ function Registration() {
     setEmployeeData(parseData);
   };
 
+  const removalOfFamilyMember = (index) => {
+    const strData = JSON.stringify(employeeData);
+    const parseData = JSON.parse(strData);
+    const updatedFamilyMembers = parseData.familyMemberDetails.filter(
+      (familyMember, i) => i !== index
+    );
+    setEmployeeData(prevData => ({
+      ...prevData,
+      familyMemberDetails: updatedFamilyMembers
+    }));
+  };
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -135,7 +147,6 @@ function Registration() {
             />
           </Form.Group>
           <Form.Group className="mt-3 mb-2">
-            
             <Form.Select
               aria-label="Select Gender"
               name="gender"
@@ -214,7 +225,12 @@ function Registration() {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group as={Col} md="3" controlId="validationCustom06" className="mt-3 mb-3" >
+          <Form.Group
+            as={Col}
+            md="3"
+            controlId="validationCustom06"
+            className="mt-3 mb-3"
+          >
             <Form.Select
               type="text"
               defaultValue="Pick Blood Group"
@@ -422,7 +438,7 @@ function Registration() {
             />
           </Form.Group>
 
-            {/* <Row className="mb-3">
+          {/* <Row className="mb-3">
               <Form.Group as={Row} md="4" controlId="validationCustom12">
                 <Form.Label>State</Form.Label>
                 <Form.Control
@@ -467,16 +483,16 @@ function Registration() {
             ) : null}
 
             {employeeData.permanentAddress.state === "kerala" ? (
-            <Form.Select
-              className="mt-2 mb-2"
-              name="city"
-              onChange={permanentAddressInputChangeHandler}
-            >
-              <option value="">select city</option>
-              <option value="Kochin">Kochin</option>
-              <option value="Thiruvanathapuram">Thiruvanathapuram</option>
-            </Form.Select>
-          ) : null}
+              <Form.Select
+                className="mt-2 mb-2"
+                name="city"
+                onChange={permanentAddressInputChangeHandler}
+              >
+                <option value="">select city</option>
+                <option value="Kochin">Kochin</option>
+                <option value="Thiruvanathapuram">Thiruvanathapuram</option>
+              </Form.Select>
+            ) : null}
 
             <Form.Group as={Row} md="4" controlId="validationCustom14">
               <Form.Label>PIN Code</Form.Label>
@@ -503,6 +519,7 @@ function Registration() {
               onChangeFamilMemberInputField={(e) =>
                 onChangeFamilMemberInputField(e, index)
               }
+              removalOfFamilyMember={(e) => removalOfFamilyMember(index)}
             />
           );
         })}
