@@ -21,7 +21,7 @@ function FamilMemberDetails({ familyMember, onChangeFamilMemberInputField }) {
               type="text"
               placeholder="Your Relationship To Employee?"
               name="realtionship"
-              value={familyMember.relationship}
+              value={familyMember.realtionship}
               onChange={onChangeFamilMemberInputField}
             />
           </Form.Group>

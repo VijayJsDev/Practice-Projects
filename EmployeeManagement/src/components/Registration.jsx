@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -57,6 +57,12 @@ function Registration() {
   //     parseData.residenceAddress[city]
   //   }
 
+  useEffect(() => {
+    if (location.state) {
+      setEmployeeData(location.state.data);
+    }
+  }, []);
+
   const inputChangeHandler = (e) => {
     const strData = JSON.stringify(employeeData);
     const tempData = JSON.parse(strData);
@@ -98,9 +104,16 @@ function Registration() {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      dispatch({ type: "add", payload: employeeData });
+      if (location.state) {
+        dispatch({
+          type: "edit",
+          payload: { index: location.state.index, data: employeeData },
+        });
+      } else {
+        dispatch({ type: "add", payload: employeeData });
+      }
+      navigate("/");
     }
-    navigate("/");
 
     setValidated(true);
   };
@@ -332,7 +345,7 @@ function Registration() {
           </Row>
         </Container>
 
-        <Container>
+        {/* <Container>
           <h3 className="text-center">Permanent Address</h3>
           <Row>
             <Form.Group as={Row} md="4" controlId="validationCustom09">
@@ -407,7 +420,7 @@ function Registration() {
               />
             </Form.Group>
           </Row>
-        </Container>
+        </Container> */}
 
         <Button variant="info" className="mb-3" onClick={onAddFamilyMember}>
           Add Family Member
