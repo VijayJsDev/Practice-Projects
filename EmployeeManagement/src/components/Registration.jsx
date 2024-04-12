@@ -9,6 +9,7 @@ import Card from "react-bootstrap/Card";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import FamilMemberDetails from "./FamilMemberDetails";
 import { useDispatch } from "react-redux";
+import Address from "./Address";
 
 function Registration() {
   const location = useLocation();
@@ -70,17 +71,17 @@ function Registration() {
     setEmployeeData(tempData);
   };
 
-  const addressInputChangeHandler = (e) => {
-    const strData = JSON.stringify(employeeData);
-    const parseData = JSON.parse(strData);
-    parseData.residenceAddress[e.target.name] = e.target.value;
-    setEmployeeData(parseData);
-  };
+  // const addressInputChangeHandler = (e) => {
+  //   const strData = JSON.stringify(employeeData);
+  //   const parseData = JSON.parse(strData);
+  //   parseData.residenceAddress[e.target.name] = e.target.value;
+  //   setEmployeeData(parseData);
+  // };
 
-  const permanentAddressInputChangeHandler = (e) => {
+  const addressInputChangeHandler = (e, key) => {
     const strData = JSON.stringify(employeeData);
     const parseData = JSON.parse(strData);
-    parseData.permanentAddress[e.target.name] = e.target.value;
+    parseData[key][e.target.name] = e.target.value;
     setEmployeeData(parseData);
   };
 
@@ -104,9 +105,9 @@ function Registration() {
     const updatedFamilyMembers = parseData.familyMemberDetails.filter(
       (familyMember, i) => i !== index
     );
-    setEmployeeData(prevData => ({
+    setEmployeeData((prevData) => ({
       ...prevData,
-      familyMemberDetails: updatedFamilyMembers
+      familyMemberDetails: updatedFamilyMembers,
     }));
   };
 
@@ -281,231 +282,20 @@ function Registration() {
           </Form.Group>
         </Row>
 
-        <Container>
-          <h3 className="text-center">Residential Address</h3>
-          <Row>
-            <Form.Group as={Row} md="4" controlId="validationCustom09">
-              <Form.Label>Flat / House No. / Floor / Building </Form.Label>
-              <Form.Control
-                required
-                type="text"
-                name="houseNo"
-                placeholder=""
-                value={employeeData.residenceAddress.houseNo}
-                onChange={addressInputChangeHandler}
-              />
-            </Form.Group>
-            <Form.Group as={Row} md="4" controlId="validationCustom10">
-              <Form.Label>Colony / Street / Locality</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                name="street"
-                placeholder=""
-                value={employeeData.residenceAddress.street}
-                onChange={addressInputChangeHandler}
-              />
-            </Form.Group>
-          </Row>
-
-          <Form.Group as={Row} md="4" controlId="validationCustom11">
-            <Form.Label>Landmark</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              name="landMark"
-              placeholder=" "
-              value={employeeData.residenceAddress.landMark}
-              onChange={addressInputChangeHandler}
-            />
-          </Form.Group>
-
-          <Form.Group
-            as={Row}
-            md="4"
-            controlId="validationCustom12"
-            className="mt-3 mb-3"
-          >
-            <Form.Select
-              aria-label="Default select example"
-              name="state"
-              value={employeeData.residenceAddress.state}
-              onChange={addressInputChangeHandler}
-            >
-              <option value="">Select State</option>
-              <option value="tamilnadu">Tamilnadu</option>
-              <option value="kerala">Kerala</option>
-            </Form.Select>
-          </Form.Group>
-          {employeeData.residenceAddress.state === "tamilnadu" ? (
-            <Form.Select
-              className="mt-2 mb-2"
-              name="city"
-              onChange={addressInputChangeHandler}
-            >
-              <option value="">select city</option>
-              <option value="chennai">Chennai</option>
-              <option value="kancheepuram">Kancheepuram</option>
-            </Form.Select>
-          ) : null}
-          {employeeData.residenceAddress.state === "kerala" ? (
-            <Form.Select
-              className="mt-2 mb-2"
-              name="city"
-              onChange={addressInputChangeHandler}
-            >
-              <option value="">select city</option>
-              <option value="Kochin">Kochin</option>
-              <option value="Thiruvanathapuram">Thiruvanathapuram</option>
-            </Form.Select>
-          ) : null}
-          {/* <Row className="mb-3">
-            <Form.Group as={Row} md="4" controlId="validationCustom12">
-              <Form.Label>State</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                name="state"
-                value={employeeData.residenceAddress.state}
-                onChange={addressInputChangeHandler}
-              />
-            </Form.Group>
-          </Row> */}
-
-          {/* */}
-
-          <Row className="mb-3">
-            {/* <Form.Group as={Row} md="4" controlId="validationCustom13">
-              <Form.Label>Town/City</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                name="city"
-                value={employeeData.residenceAddress.city}
-                onChange={addressInputChangeHandler}
-              />
-            </Form.Group> */}
-
-            <Form.Group as={Row} md="4" controlId="validationCustom14">
-              <Form.Label>PIN Code</Form.Label>
-              <Form.Control
-                required
-                type="number"
-                name="pinCode"
-                value={employeeData.residenceAddress.pinCode}
-                onChange={addressInputChangeHandler}
-              />
-            </Form.Group>
-          </Row>
-        </Container>
-
-        <Container>
-          <h3 className="text-center">Permanent Address</h3>
-          <Row>
-            <Form.Group as={Row} md="4" controlId="validationCustom09">
-              <Form.Label>Flat / House No. / Floor / Building </Form.Label>
-              <Form.Control
-                required
-                type="text"
-                name="houseNo"
-                placeholder=""
-                value={employeeData.permanentAddress.houseNo}
-                onChange={permanentAddressInputChangeHandler}
-              />
-            </Form.Group>
-            <Form.Group as={Row} md="4" controlId="validationCustom10">
-              <Form.Label>Colony / Street / Locality</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                name="street"
-                placeholder=""
-                value={employeeData.permanentAddress.street}
-                onChange={permanentAddressInputChangeHandler}
-              />
-            </Form.Group>
-          </Row>
-
-          <Form.Group as={Row} md="4" controlId="validationCustom11">
-            <Form.Label>Landmark</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              name="landMark"
-              placeholder=" "
-              value={employeeData.permanentAddress.landMark}
-              onChange={permanentAddressInputChangeHandler}
-            />
-          </Form.Group>
-
-          {/* <Row className="mb-3">
-              <Form.Group as={Row} md="4" controlId="validationCustom12">
-                <Form.Label>State</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  name="state"
-                  value={employeeData.permanentAddress.state}
-                  onChange={permanentAddressInputChangeHandler}
-                />
-              </Form.Group>
-            </Row> */}
-
-          <Row className="mb-3">
-            <Form.Group
-              as={Row}
-              md="4"
-              controlId="validationCustom12"
-              className="mt-3 mb-3"
-            >
-              <Form.Select
-                aria-label="Default select example"
-                name="state"
-                value={employeeData.permanentAddress.state}
-                onChange={permanentAddressInputChangeHandler}
-              >
-                <option value="">Select State</option>
-                <option value="tamilnadu">Tamilnadu</option>
-                <option value="kerala">Kerala</option>
-              </Form.Select>
-            </Form.Group>
-
-            {employeeData.permanentAddress.state === "tamilnadu" ? (
-              <Form.Select
-                className="mt-2 mb-2"
-                name="city"
-                onChange={permanentAddressInputChangeHandler}
-              >
-                <option value="">select city</option>
-                <option value="chennai">Chennai</option>
-                <option value="kancheepuram">Kancheepuram</option>
-              </Form.Select>
-            ) : null}
-
-            {employeeData.permanentAddress.state === "kerala" ? (
-              <Form.Select
-                className="mt-2 mb-2"
-                name="city"
-                onChange={permanentAddressInputChangeHandler}
-              >
-                <option value="">select city</option>
-                <option value="Kochin">Kochin</option>
-                <option value="Thiruvanathapuram">Thiruvanathapuram</option>
-              </Form.Select>
-            ) : null}
-
-            <Form.Group as={Row} md="4" controlId="validationCustom14">
-              <Form.Label>PIN Code</Form.Label>
-              <Form.Control
-                required
-                type="number"
-                name="pinCode"
-                value={employeeData.permanentAddress.pinCode}
-                onChange={permanentAddressInputChangeHandler}
-              />
-            </Form.Group>
-          </Row>
-        </Container>
+        <Address
+          heading="Permanent Address"
+          address={employeeData.permanentAddress}
+          inputChangeHandler={(e) =>
+            addressInputChangeHandler(e, "permanentAddress")
+          }
+        />
+        <Address
+          heading="Residence Address"
+          address={employeeData.residenceAddress}
+          inputChangeHandler={(e) =>
+            addressInputChangeHandler(e, "residenceAddress")
+          }
+        />
 
         <Button variant="info" className="mb-3" onClick={onAddFamilyMember}>
           Add Family Member
