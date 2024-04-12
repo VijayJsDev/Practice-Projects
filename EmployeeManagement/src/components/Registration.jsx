@@ -135,14 +135,14 @@ function Registration() {
             />
           </Form.Group>
           <Form.Group className="mt-3 mb-2">
-            <Form.Label>Select Gender</Form.Label>
+            
             <Form.Select
               aria-label="Select Gender"
               name="gender"
               value={employeeData.gender}
               onChange={inputChangeHandler}
             >
-              <option value=""></option>
+              <option value="">Select Gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="other">Other</option>
@@ -214,8 +214,7 @@ function Registration() {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group as={Col} md="3" controlId="validationCustom06">
-            <Form.Label>Blood group</Form.Label>
+          <Form.Group as={Col} md="3" controlId="validationCustom06" className="mt-3 mb-3" >
             <Form.Select
               type="text"
               defaultValue="Pick Blood Group"
@@ -224,7 +223,7 @@ function Registration() {
               onChange={inputChangeHandler}
               required
             >
-              <option value=""></option>
+              <option value="">Select Your Blood Group</option>
               <option value="O+ve">O+ve</option>
               <option value="AB-ve">AB-ve</option>
               <option value="B+ve">B+ve</option>
@@ -305,7 +304,46 @@ function Registration() {
             />
           </Form.Group>
 
-          <Row className="mb-3">
+          <Form.Group
+            as={Row}
+            md="4"
+            controlId="validationCustom12"
+            className="mt-3 mb-3"
+          >
+            <Form.Select
+              aria-label="Default select example"
+              name="state"
+              value={employeeData.residenceAddress.state}
+              onChange={addressInputChangeHandler}
+            >
+              <option value="">Select State</option>
+              <option value="tamilnadu">Tamilnadu</option>
+              <option value="kerala">Kerala</option>
+            </Form.Select>
+          </Form.Group>
+          {employeeData.residenceAddress.state === "tamilnadu" ? (
+            <Form.Select
+              className="mt-2 mb-2"
+              name="city"
+              onChange={addressInputChangeHandler}
+            >
+              <option value="">select city</option>
+              <option value="chennai">Chennai</option>
+              <option value="kancheepuram">Kancheepuram</option>
+            </Form.Select>
+          ) : null}
+          {employeeData.residenceAddress.state === "kerala" ? (
+            <Form.Select
+              className="mt-2 mb-2"
+              name="city"
+              onChange={addressInputChangeHandler}
+            >
+              <option value="">select city</option>
+              <option value="Kochin">Kochin</option>
+              <option value="Thiruvanathapuram">Thiruvanathapuram</option>
+            </Form.Select>
+          ) : null}
+          {/* <Row className="mb-3">
             <Form.Group as={Row} md="4" controlId="validationCustom12">
               <Form.Label>State</Form.Label>
               <Form.Control
@@ -316,12 +354,12 @@ function Registration() {
                 onChange={addressInputChangeHandler}
               />
             </Form.Group>
-          </Row>
+          </Row> */}
 
           {/* */}
 
           <Row className="mb-3">
-            <Form.Group as={Row} md="4" controlId="validationCustom13">
+            {/* <Form.Group as={Row} md="4" controlId="validationCustom13">
               <Form.Label>Town/City</Form.Label>
               <Form.Control
                 required
@@ -330,7 +368,7 @@ function Registration() {
                 value={employeeData.residenceAddress.city}
                 onChange={addressInputChangeHandler}
               />
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group as={Row} md="4" controlId="validationCustom14">
               <Form.Label>PIN Code</Form.Label>
@@ -345,7 +383,7 @@ function Registration() {
           </Row>
         </Container>
 
-        {/* <Container>
+        <Container>
           <h3 className="text-center">Permanent Address</h3>
           <Row>
             <Form.Group as={Row} md="4" controlId="validationCustom09">
@@ -384,30 +422,61 @@ function Registration() {
             />
           </Form.Group>
 
+            {/* <Row className="mb-3">
+              <Form.Group as={Row} md="4" controlId="validationCustom12">
+                <Form.Label>State</Form.Label>
+                <Form.Control
+                  required
+                  type="text"
+                  name="state"
+                  value={employeeData.permanentAddress.state}
+                  onChange={permanentAddressInputChangeHandler}
+                />
+              </Form.Group>
+            </Row> */}
+
           <Row className="mb-3">
-            <Form.Group as={Row} md="4" controlId="validationCustom12">
-              <Form.Label>State</Form.Label>
-              <Form.Control
-                required
-                type="text"
+            <Form.Group
+              as={Row}
+              md="4"
+              controlId="validationCustom12"
+              className="mt-3 mb-3"
+            >
+              <Form.Select
+                aria-label="Default select example"
                 name="state"
                 value={employeeData.permanentAddress.state}
                 onChange={permanentAddressInputChangeHandler}
-              />
+              >
+                <option value="">Select State</option>
+                <option value="tamilnadu">Tamilnadu</option>
+                <option value="kerala">Kerala</option>
+              </Form.Select>
             </Form.Group>
-          </Row>
 
-          <Row className="mb-3">
-            <Form.Group as={Row} md="4" controlId="validationCustom13">
-              <Form.Label>Town/City</Form.Label>
-              <Form.Control
-                required
-                type="text"
+            {employeeData.permanentAddress.state === "tamilnadu" ? (
+              <Form.Select
+                className="mt-2 mb-2"
                 name="city"
-                value={employeeData.permanentAddress.city}
                 onChange={permanentAddressInputChangeHandler}
-              />
-            </Form.Group>
+              >
+                <option value="">select city</option>
+                <option value="chennai">Chennai</option>
+                <option value="kancheepuram">Kancheepuram</option>
+              </Form.Select>
+            ) : null}
+
+            {employeeData.permanentAddress.state === "kerala" ? (
+            <Form.Select
+              className="mt-2 mb-2"
+              name="city"
+              onChange={permanentAddressInputChangeHandler}
+            >
+              <option value="">select city</option>
+              <option value="Kochin">Kochin</option>
+              <option value="Thiruvanathapuram">Thiruvanathapuram</option>
+            </Form.Select>
+          ) : null}
 
             <Form.Group as={Row} md="4" controlId="validationCustom14">
               <Form.Label>PIN Code</Form.Label>
@@ -420,7 +489,7 @@ function Registration() {
               />
             </Form.Group>
           </Row>
-        </Container> */}
+        </Container>
 
         <Button variant="info" className="mb-3" onClick={onAddFamilyMember}>
           Add Family Member
