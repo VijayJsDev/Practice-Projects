@@ -69,6 +69,30 @@ function Address({ heading, address, inputChangeHandler }) {
             </Form.Select>
           </Form.Group>
 
+          {address.state === "tamilnadu" ? (
+            <Form.Select
+              name="city"
+              value={address.city}
+              onChange={inputChangeHandler}
+            >
+              <option value="">Select City</option>
+              <option value="chennai">Chennai</option>
+              <option value="chengalpet">Chengalpet</option>
+            </Form.Select>
+          ) : null}
+
+          {address.state === "kerala" ? (
+            <Form.Select
+              name="city"
+              value={address.city}
+              onChange={inputChangeHandler}
+            >
+              <option value="">Select City</option>
+              <option value="Thiruvanathapuram">Thiruvanathapuram</option>
+              <option value="Kochin">Kochin</option>
+            </Form.Select>
+          ) : null}
+
           <Form.Group as={Row} md="4" controlId="validationCustom14">
             <Form.Label>PIN Code</Form.Label>
             <Form.Control
