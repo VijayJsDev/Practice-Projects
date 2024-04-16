@@ -10,9 +10,23 @@ const ProductItem = (props) => {
 
   const productHandler = (e) => {
     e.preventDefault();
-    dispatch(productActions.addProducts({ id, title, price, description, quantity, totalPrice}));
+    dispatch(
+      productActions.addProducts({
+        id,
+        title,
+        price,
+        description,
+        quantity,
+        totalPrice,
+      })
+    );
     console.log(products);
   };
+
+  const addCartItemHandler = () => {
+    dispatch(productActions.addCartItems({id, title, price}));
+  };
+
   console.log(products);
   return (
     <li className={classes.item}>
@@ -23,9 +37,7 @@ const ProductItem = (props) => {
         </header>
         <p>{description}</p>
         <div className={classes.actions}>
-          <form onClick={productHandler}>
-            <button type="submit">Add to Cart</button>
-          </form>
+          <button onClick={addCartItemHandler}>Add to Cart</button>
         </div>
       </Card>
     </li>

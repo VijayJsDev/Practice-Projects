@@ -5,7 +5,7 @@ import { cartActions } from "../store/cartReducer";
 const CartButton = (props) => {
   const dispatch = useDispatch();
   const showCart = useSelector((state) => state.cart.isToggle);
-  const quantity = useSelector((state) => state.cart.length)
+  const quantity = useSelector((state) => state.products.totalQuantity)
   console.log(showCart);
 
   const toggleCart = (e) => {

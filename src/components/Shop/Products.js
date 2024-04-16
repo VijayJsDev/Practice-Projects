@@ -30,10 +30,10 @@ const Products = (props) => {
             <ProductItem
               product={product}
               key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              description={product.description}
+              // id={product.id}
+              // title={product.title}
+              // price={product.price}
+              // description={product.description}
             />
           );
         })}
