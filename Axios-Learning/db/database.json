@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "username": "johndoe",
+      "email": "john.doe@example.com",
+      "phone": "1234567890",
+      "website": "johndoe.com"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "username": "janesmith",
+      "email": "jane.smith@example.com",
+      "phone": "987-654-3210",
+      "website": "janesmith.com"
+    },
+    {
+      "id": "3",
+      "name": "Alice Johnson",
+      "username": "alicejohnson",
+      "email": "alice.johnson@example.com",
+      "phone": "555-123-4567",
+      "website": "alicejohnson.com"
+    },
+    {
+      "id": "4",
+      "name": "Bob Brown",
+      "username": "bobbrown",
+      "email": "bob.brown@example.com",
+      "phone": "777-888-9999",
+      "website": "bobbrown.com"
+    },
+    {
+      "id": "5",
+      "name": "Emily Taylor",
+      "username": "emilytaylor",
+      "email": "emily.taylor@example.com",
+      "phone": "444-555-6666",
+      "website": "emilytaylor.com"
+    },
+    {
+      "id": "5bdd",
+      "name": "User1 updated 2",
+      "phone": "1234567890",
+      "email": "user1@gmail.com"
+    },
+    {
+      "id": "a2c6",
+      "name": "user1",
+      "phone": "1234567890",
+      "email": "user123@gmail.com"
+    },
+    {
+      "id": "b8be",
+      "name": "Vijay",
+      "phone": "6383213129",
+      "email": "vijayb@bowandbaan.com"
+    }
+  ]
+}
