@@ -1,7 +1,5 @@
 import Create from "./components/Create";
 import Home from "./components/Home";
-import NavigationBar from "./components/NavigationBar";
-import Posts from "./components/Posts";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Update from "./components/Update.";
