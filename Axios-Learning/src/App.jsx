@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Update from "./components/Update.";
 import Read from "./components/Read";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const router = createBrowserRouter([

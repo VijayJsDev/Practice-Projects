@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import InputGroup from "react-bootstrap/InputGroup";
 
 function Create() {
   const { id } = useParams();
@@ -15,6 +16,13 @@ function Create() {
     name: "",
     phone: "",
     email: "",
+    dateOfBirth: "",
+    gender: "",
+    bloodGroup: "",
+    pinCode: "",
+    residentialAddress: "",
+    state: "",
+    city: "",
   });
 
   useEffect(() => {
@@ -52,55 +60,223 @@ function Create() {
       <Container className="mt-5">
         <h1 className="text-center">Add New User</h1>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <Form.Group className="mt-3 mb-3">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Name"
-              value={user.name}
-              onChange={(e) => setUser({ ...user, name: e.target.value })}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Name Cannot Be Empty
-            </Form.Control.Feedback>
-          </Form.Group>
+          {/* First Row */}
+          <Row xs="1" sm="2" md="3" lg='3'>
+            <Col xs='6' sm='4' md="4">
+              <Form.Group className="mt-3 mb-3">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Name"
+                  value={user.name}
+                  onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Name Cannot Be Empty
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
 
-          <Form.Group className="mt-3 mb-3">
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Phone Number"
-              value={user.phone}
-              onChange={(e) => setUser({ ...user, phone: e.target.value })}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Phone Number Cannot Be Empty
-            </Form.Control.Feedback>
-          </Form.Group>
+            <Col xs='6' sm='4' md="4">
+              <Form.Group className="mt-3 mb-3">
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="Phone Number"
+                  value={user.phone}
+                  onChange={(e) => setUser({ ...user, phone: e.target.value })}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Phone Number Cannot Be Empty
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
 
-          <Form.Group className="mt-3 mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="example123@gmail.com"
-              value={user.email}
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Email Field Cannot Be Empty
-            </Form.Control.Feedback>
-          </Form.Group>
+            <Col sm='4' md='4'>
+              <Form.Group className="mt-3 mb-3">
+                <Form.Label>Email</Form.Label>
+                <InputGroup>
+                  <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                  <Form.Control
+                    type="email"
+                    placeholder="example123@gmail.com"
+                    value={user.email}
+                    onChange={(e) =>
+                      setUser({ ...user, email: e.target.value })
+                    }
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Email Field Cannot Be Empty
+                  </Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          {/* Second Row */}
+          <Row xs="1" sm="2" md="3">
+            <Col xs='6' sm='4'>
+              <Form.Group className="mt-3 mb-3">
+                <Form.Label>Date Of Birth</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={user.dateOfBirth}
+                  onChange={(e) =>
+                    setUser({ ...user, dateOfBirth: e.target.value })
+                  }
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Date Of Birth Cannot Be Empty
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
 
-          <Button variant="success" type="submit">
-            Submit
-          </Button>
+            <Col xs='6' sm='4'>
+              <Form.Group className="mt-3 mb-3">
+                <Form.Label>Gender</Form.Label>
+                <Form.Select
+                  value={user.gender}
+                  onChange={(e) => {
+                    setUser({ ...user, gender: e.target.value });
+                  }}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </Form.Select>
+                <Form.Control.Feedback type="invalid">
+                  Please Pick A Gender.
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+
+            <Col xs='12' sm='4'>
+              <Form.Group className="mt-3 mb-3">
+                <Form.Label>Blood Group</Form.Label>
+                <Form.Select
+                  value={user.bloodGroup}
+                  onChange={(e) => {
+                    setUser({ ...user, bloodGroup: e.target.value });
+                  }}
+                >
+                  <option value="">Select BloodGroup</option>
+                  <option value="o+ve">O+ve</option>
+                  <option value="b+ve">B+ve</option>
+                  <option value="ab-ve">AB-ve</option>
+                </Form.Select>
+                <Form.Control.Feedback type="invalid">
+                  Please Pick A BloodGroup.
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+
+         
+          </Row>
+          {/* Third Row - Not Row Technically, But Text area */}
+          <Row xs='2' sm='2' lg='4' xl='4'>
+          <Col xs='8' sm='8' md='5' lg='6' xl='6'>
+              <Form.Group>
+                <Form.Label>Residential Address</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  placeholder="Enter Your Address Here...."
+                  value={user.residentialAddress}
+                  onChange={(e) => {
+                    setUser({ ...user, residentialAddress: e.target.value });
+                  }}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please Enter A Residential Address
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+            <Col className="mt-3 mb-3" xs='4' sm='4' md='2' lg='2' xl='2'>
+              <Form.Group>
+                <Form.Label>Pincode</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="pincode"
+                  value={user.pinCode}
+                  onChange={(e) => {
+                    setUser({ ...user, pinCode: e.target.value });
+                  }}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please Enter A Pincode.
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+            <Col className="mt-3 mb-3" xs='6' sm='6'  md='3'  lg='2'  xl='2'>
+              <Form.Group>
+                <Form.Label>State</Form.Label>
+                <Form.Select
+                  value={user.state}
+                  onChange={(e) => setUser({ ...user, state: e.target.value })}
+                >
+                  <option value="">Select State</option>
+                  <option value="tamilnadu">Tamilnadu</option>
+                  <option value="kerala">Kerala</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+
+            <Col className="mt-3 mb-3" xs='6'  md='2' lg='2'  xl='2'>
+              {user.state === "tamilnadu" ? (
+                <Form.Group>
+                  <Form.Label>City</Form.Label>
+                  <Form.Select
+                    value={user.city}
+                    onChange={(e) => setUser({ ...user, city: e.target.value })}
+                  >
+                    <option value="">Select City</option>
+                    <option value="chennai">Chennai</option>
+                    <option value="chengalpet">Chengalpet</option>
+                  </Form.Select>
+                </Form.Group>
+              ) : (
+                ""
+              )}
+
+              {user.state === "kerala" ? (
+                <Form.Group>
+                  <Form.Label>City</Form.Label>
+                  <Form.Select
+                    value={user.city}
+                    onChange={(e) => setUser({ ...user, city: e.target.value })}
+                  >
+                    <option value="">Select City</option>
+                    <option value="thiruvananthapuram">
+                      Thiruvananthapuram
+                    </option>
+                    <option value="kochin">Kochin</option>
+                  </Form.Select>
+                </Form.Group>
+              ) : (
+                ""
+              )}
+            </Col>
+          </Row>
+
+          {/* Fourth Row */}
+          <Row xs="1" sm="1" md="3" lg="4"></Row>
+          {/* Fifth Row */}
+          <Row></Row>
+
+          <div className="d-flex justify-content-center mt-5">
+            <Button variant="success" type="submit">
+              Submit
+            </Button>
+          </div>
         </Form>
-        <Link to="/">
-          <Button variant="secondary">Return To Home</Button>
-        </Link>
+
+        <div className="d-flex justify-content-center mt-2">
+          <Link to="/">
+            <Button variant="secondary">Return To Home</Button>
+          </Link>
+        </div>
       </Container>
     </>
   );
