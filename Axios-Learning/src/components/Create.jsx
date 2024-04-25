@@ -21,9 +21,10 @@ function Create() {
     if (id) {
       axios
         .get(`http://localhost:4000/users/${id}`)
-        .then((response) =>
-          setUser(response.data).catch((error) => console.log(error))
-        );
+        .then((response) => {
+          setUser(response.data);
+        })
+        .catch((error) => console.log(error));
     }
   }, [id]);
 

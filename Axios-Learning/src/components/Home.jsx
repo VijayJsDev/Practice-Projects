@@ -21,13 +21,16 @@ function Home() {
     const proceed = window.confirm("Are Your Sure To Delete This User?");
 
     if (proceed) {
-      const updatedUsers = users.filter((user, index) => user.id !== id);
-      setUsers(updatedUsers);
+      axios
+        .delete(`http://localhost:4000/users/${id}`)
+        .then((response) => console.log(response.data)).then(() => location.reload()).catch((error) => console.log(error))
+      // const updatedUsers = users.filter((user, index) => user.id !== id);
+      // setUsers(updatedUsers);
     }
   };
 
   const onEditHandler = (id) => {
-    navigate(`/create/${id}`)
+    navigate(`/create/${id}`);
   };
 
   return (
@@ -62,11 +65,14 @@ function Home() {
                   {/* <Link to={`update/${user.id}`}>
                     <Button variant="secondary">Edit</Button>
                   </Link> */}
-          
-                  
-                      <Button onClick={(e) => onEditHandler(user.id)} variant="secondary">Edit</Button>
-                   
-                
+
+                  <Button
+                    onClick={(e) => onEditHandler(user.id)}
+                    variant="secondary"
+                  >
+                    Edit
+                  </Button>
+
                   <Button
                     onClick={() => deleteHandler(user.id)}
                     variant="danger"
