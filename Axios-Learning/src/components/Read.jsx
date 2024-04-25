@@ -9,6 +9,10 @@ function Read() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const onEditHandler = (id) => {
+    navigate(`/create/${id}`);
+  };
+
   useEffect(() => {
     axios
       .get(`http://localhost:4000/users/${id}`)
@@ -27,9 +31,12 @@ function Read() {
             <br />
             <strong>Phone Number:{users.phone}</strong>
             <br />
-            <Link to={`/update/${id}`}>
+            {/* <Link to={`/update/${id}`}>
               <Button variant="warning">Edit</Button>
-            </Link>
+            </Link> */}
+            <Button onClick={(e) => onEditHandler(id)} variant="warning">
+              Edit
+            </Button>
             <Link to="..">
               <Button variant="secondary">Back</Button>
             </Link>

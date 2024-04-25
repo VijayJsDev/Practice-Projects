@@ -1,26 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 function Create() {
+  const { id } = useParams();
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
   const [user, setUser] = useState({
+    id: uuidv4(),
     name: "",
     phone: "",
     email: "",
   });
+
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`http://localhost:4000/users/${id}`)
+        .then((response) =>
+          setUser(response.data).catch((error) => console.log(error))
+        );
+    }
+  }, [id]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
-    axios.post("http://localhost:4000/users", user).then((res) => {
+
+    const request = id
+      ? axios.put(`http://localhost:4000/users/${id}`, user)
+      : axios.post("http://localhost:4000/users", user);
+
+    request.then((res) => {
       console.log(res);
+      setUser(res.data);
       navigate("/");
     });
     setValidated(true);

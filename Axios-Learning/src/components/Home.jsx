@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Container, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
   const [users, setUsers] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("http://localhost:4000/users")
@@ -18,12 +18,16 @@ function Home() {
   }, []);
 
   const deleteHandler = (id) => {
-    const proceed = window.confirm("Are Your Sure To Delete This User?")
-     
-    if(proceed){
-        const updatedUsers = users.filter((user, index) => user.id !== id);
-        setUsers(updatedUsers);
+    const proceed = window.confirm("Are Your Sure To Delete This User?");
+
+    if (proceed) {
+      const updatedUsers = users.filter((user, index) => user.id !== id);
+      setUsers(updatedUsers);
     }
+  };
+
+  const onEditHandler = (id) => {
+    navigate(`/create/${id}`)
   };
 
   return (
@@ -55,10 +59,20 @@ function Home() {
                   <Link to={`read/${user.id}`}>
                     <Button variant="primary">View</Button>
                   </Link>
-                  <Link to={`update/${user.id}`}>
+                  {/* <Link to={`update/${user.id}`}>
                     <Button variant="secondary">Edit</Button>
-                  </Link>
-                  <Button onClick={() => deleteHandler(user.id)} variant="danger">Delete</Button>
+                  </Link> */}
+          
+                  
+                      <Button onClick={(e) => onEditHandler(user.id)} variant="secondary">Edit</Button>
+                   
+                
+                  <Button
+                    onClick={() => deleteHandler(user.id)}
+                    variant="danger"
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}

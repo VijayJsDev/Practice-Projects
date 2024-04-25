@@ -9,6 +9,7 @@ function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
     { path: "/create", element: <Create /> },
+    { path: "/create/:id", element: <Create /> },
     { path: "/update/:id", element: <Update /> },
     { path: "/read/:id", element: <Read /> },
   ]);
