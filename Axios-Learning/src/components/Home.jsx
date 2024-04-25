@@ -45,7 +45,7 @@ function Home() {
         <Table responsive>
           <thead>
             <tr>
-              <th>ID</th>
+              
               <th>Name</th>
               <th>Phone Number</th>
               <th>Email</th>
@@ -54,7 +54,7 @@ function Home() {
           <tbody>
             {users.map((user, index) => (
               <tr key={index}>
-                <td>{user.id}</td>
+                
                 <td>{user.name}</td>
                 <td>{user.phone}</td>
                 <td>{user.email}</td>
