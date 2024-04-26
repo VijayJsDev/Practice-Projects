@@ -11,6 +11,7 @@ function Create() {
   const { id } = useParams();
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
+  const [isError, setIsError] = useState({});
   const [user, setUser] = useState({
     id: uuidv4(),
     name: "",
@@ -43,34 +44,46 @@ function Create() {
       event.stopPropagation();
     }
 
-    const request = id
-      ? axios.put(`http://localhost:4000/users/${id}`, user)
-      : axios.post("http://localhost:4000/users", user);
+    // if(user.phone.length !==10){
+    //   setIsError({phone: 'Invalid Phone Number'})
+    // } else{
+    //   setIsError({phone: ''})
+    // }
 
-    request.then((res) => {
-      console.log(res);
-      setUser(res.data);
-      navigate("/");
-    });
+    if (form.checkValidity() === true) {
+      const request = id
+        ? axios.put(`http://localhost:4000/users/${id}`, user)
+        : axios.post("http://localhost:4000/users", user);
+
+      request
+        .then((res) => {
+          console.log(res);
+          setUser(res.data);
+          navigate("/");
+        })
+        .catch((error) => console.log(error));
+    }
     setValidated(true);
   };
   console.log(user);
+  console.log(isError);
   return (
     <>
       <Container className="mt-5">
         <h1 className="text-center">Add New User</h1>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           {/* First Row */}
-          <Row xs="1" sm="2" md="3" lg='3'>
-            <Col xs='6' sm='4' md="4">
+          <Row xs="1" sm="2" md="3" lg="3">
+            <Col xs="6" sm="4" md="4">
               <Form.Group className="mt-3 mb-3">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Name"
                   value={user.name}
-                  onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  onChange={(e) => setUser({ name: e.target.value })}
                   required
+                  isInvalid={validated && !user.name}
                 />
                 <Form.Control.Feedback type="invalid">
                   Name Cannot Be Empty
@@ -78,23 +91,32 @@ function Create() {
               </Form.Group>
             </Col>
 
-            <Col xs='6' sm='4' md="4">
-              <Form.Group className="mt-3 mb-3">
+            <Col xs="6" sm="4" md="4">
+              <Form.Group className="mt-3 mb-3" controlId="formControlId1">
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Phone Number"
                   value={user.phone}
-                  onChange={(e) => setUser({ ...user, phone: e.target.value })}
+                  onChange={(e) => {
+                    const phone = e.target.value;
+                    if (phone.length !== 10) {
+                      setIsError({ ...isError, phone: "invalid phone number" });
+                    } else {
+                      setIsError({ ...isError, phone: "" });
+                    }
+                    setUser({ ...user, phone: phone });
+                  }}
                   required
+                  isInvalid={validated && (!user.phone || isError.phone)}
                 />
                 <Form.Control.Feedback type="invalid">
-                  Phone Number Cannot Be Empty
+                  Invalid Phone Number
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
 
-            <Col sm='4' md='4'>
+            <Col sm="4" md="4">
               <Form.Group className="mt-3 mb-3">
                 <Form.Label>Email</Form.Label>
                 <InputGroup>
@@ -117,7 +139,7 @@ function Create() {
           </Row>
           {/* Second Row */}
           <Row xs="1" sm="2" md="3">
-            <Col xs='6' sm='4'>
+            <Col xs="6" sm="4">
               <Form.Group className="mt-3 mb-3">
                 <Form.Label>Date Of Birth</Form.Label>
                 <Form.Control
@@ -134,7 +156,7 @@ function Create() {
               </Form.Group>
             </Col>
 
-            <Col xs='6' sm='4'>
+            <Col xs="6" sm="4">
               <Form.Group className="mt-3 mb-3">
                 <Form.Label>Gender</Form.Label>
                 <Form.Select
@@ -142,6 +164,8 @@ function Create() {
                   onChange={(e) => {
                     setUser({ ...user, gender: e.target.value });
                   }}
+                  required
+                  isInvalid={validated && !user.gender}
                 >
                   <option value="">Select Gender</option>
                   <option value="male">Male</option>
@@ -153,7 +177,7 @@ function Create() {
               </Form.Group>
             </Col>
 
-            <Col xs='12' sm='4'>
+            <Col xs="12" sm="4">
               <Form.Group className="mt-3 mb-3">
                 <Form.Label>Blood Group</Form.Label>
                 <Form.Select
@@ -161,6 +185,8 @@ function Create() {
                   onChange={(e) => {
                     setUser({ ...user, bloodGroup: e.target.value });
                   }}
+                  required
+                  isInvalid={validated && !user.bloodGroup}
                 >
                   <option value="">Select BloodGroup</option>
                   <option value="o+ve">O+ve</option>
@@ -172,12 +198,10 @@ function Create() {
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
-
-         
           </Row>
           {/* Third Row - Not Row Technically, But Text area */}
-          <Row xs='2' sm='2' lg='4' xl='4'>
-          <Col xs='8' sm='8' md='5' lg='6' xl='6'>
+          <Row xs="2" sm="2" lg="4" xl="4">
+            <Col xs="8" sm="8" md="5" lg="6" xl="6">
               <Form.Group>
                 <Form.Label>Residential Address</Form.Label>
                 <Form.Control
@@ -187,13 +211,15 @@ function Create() {
                   onChange={(e) => {
                     setUser({ ...user, residentialAddress: e.target.value });
                   }}
+                  required
+                  isInvalid={validated && !user.residentialAddress}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please Enter A Residential Address
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            <Col className="mt-3 mb-3" xs='4' sm='4' md='2' lg='2' xl='2'>
+            <Col className="mt-3 mb-3" xs="4" sm="4" md="2" lg="2" xl="2">
               <Form.Group>
                 <Form.Label>Pincode</Form.Label>
                 <Form.Control
@@ -201,40 +227,59 @@ function Create() {
                   placeholder="pincode"
                   value={user.pinCode}
                   onChange={(e) => {
-                    setUser({ ...user, pinCode: e.target.value });
+                    const input = e.target.value;
+                    if (input.length <= 6) {
+                      setUser({ ...user, pinCode: input });
+                    }
                   }}
+                  required
+                  isInvalid={validated && !user.pinCode}
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please Enter A Pincode.
+                  {!user.pinCode
+                    ? "Pincode Cannot Be Empty"
+                    : user.pinCode.length !== 6
+                    ? "Enter A Valid Pincode"
+                    : ""}
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            <Col className="mt-3 mb-3" xs='6' sm='6'  md='3'  lg='2'  xl='2'>
+            <Col className="mt-3 mb-3" xs="6" sm="6" md="3" lg="2" xl="2">
               <Form.Group>
                 <Form.Label>State</Form.Label>
                 <Form.Select
                   value={user.state}
                   onChange={(e) => setUser({ ...user, state: e.target.value })}
+                  required
+                  isInvalid={validated && !user.state}
                 >
                   <option value="">Select State</option>
                   <option value="tamilnadu">Tamilnadu</option>
                   <option value="kerala">Kerala</option>
                 </Form.Select>
+                <Form.Control.Feedback type="invalid">
+                  Pick A State
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
 
-            <Col className="mt-3 mb-3" xs='6'  md='2' lg='2'  xl='2'>
+            <Col className="mt-3 mb-3" xs="6" md="2" lg="2" xl="2">
               {user.state === "tamilnadu" ? (
                 <Form.Group>
                   <Form.Label>City</Form.Label>
                   <Form.Select
                     value={user.city}
                     onChange={(e) => setUser({ ...user, city: e.target.value })}
+                    required
+                    isInvalid={validated && !user.city}
                   >
                     <option value="">Select City</option>
                     <option value="chennai">Chennai</option>
                     <option value="chengalpet">Chengalpet</option>
                   </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    Select A City
+                  </Form.Control.Feedback>
                 </Form.Group>
               ) : (
                 ""
@@ -246,6 +291,8 @@ function Create() {
                   <Form.Select
                     value={user.city}
                     onChange={(e) => setUser({ ...user, city: e.target.value })}
+                    required
+                    isInvalid={validated && !user.city}
                   >
                     <option value="">Select City</option>
                     <option value="thiruvananthapuram">
@@ -253,6 +300,9 @@ function Create() {
                     </option>
                     <option value="kochin">Kochin</option>
                   </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    Select A City
+                  </Form.Control.Feedback>
                 </Form.Group>
               ) : (
                 ""

@@ -5,16 +5,26 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
   const [users, setUsers] = useState([]);
+  const [isError, setIsError] = useState('')
   const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("http://localhost:4000/users")
       .then((res) => {
         setUsers(res.data);
+        setIsError('')
         console.log(res.data);
         console.log(users);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        if(err.response.status === 404){
+          setIsError('Users Not Found!')
+        }
+      });
+      return () => {
+        setIsError('')
+      }
   }, []);
 
   const deleteHandler = (id) => {
@@ -42,6 +52,7 @@ function Home() {
             <Button variant="success">Add User</Button>
           </Link>
         </div>
+        {isError && <p className="text-danger">{isError}</p>}
         <Table responsive>
           <thead>
             <tr>
