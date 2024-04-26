@@ -23,7 +23,7 @@ function Read() {
   return (
     <>
       <Container className="mt-3 mb-3">
-        <Card>
+        <Card className="text-center p-5">
           <Card.Header>User Detail</Card.Header>
           <Card.Body>
             <h3>Name:{users.name}</h3>
@@ -31,6 +31,25 @@ function Read() {
             <br />
             <strong>Phone Number:{users.phone}</strong>
             <br />
+            <strong>Date OF Birth:{users.dateOfBirth}</strong>
+            <br />
+            <strong>Gender: {users.gender}</strong>
+            <br />
+            <strong>Blood Group: {users.bloodGroup}</strong>
+            <br />
+            <strong>Pincode: {users.pinCode}</strong>
+            <br />
+            <strong>
+              Residential Address: <span>{users.residentialAddress}</span>
+            </strong><br />
+
+            <strong>
+              State: {users.state}
+            </strong><br />
+            <strong>
+              City: {users.city}
+            </strong><br />
+
             {/* <Link to={`/update/${id}`}>
               <Button variant="warning">Edit</Button>
             </Link> */}

@@ -1,45 +1,13 @@
 {
   "users": [
     {
-      "id": "5",
-      "name": "Emily Taylors",
-      "username": "emilytaylor",
-      "email": "emily.taylor@example.com",
-      "phone": "4445556666",
-      "website": "emilytaylor.com"
-    },
-    {
-      "id": "a2c6",
-      "name": "user1",
-      "phone": "1234567890",
-      "email": "user123@gmail.com"
-    },
-    {
-      "id": "b8be",
-      "name": "Vijay",
-      "phone": "6383213129",
-      "email": "vijayb@bowandbaan.com"
-    },
-    {
-      "id": "1714025457408",
-      "name": "user 10",
-      "phone": "1234567890",
-      "email": "user10@gmail.com"
-    },
-    {
-      "id": "575e03e0-a7b3-488f-aa3c-edc80f5bcac9",
-      "name": "user12",
-      "phone": "1234567890",
-      "email": "user12@gmail.com"
-    },
-    {
       "id": "3d5c3bc4-2952-4421-86db-116acea643cc",
       "name": "Vijay",
-      "phone": "123456789",
+      "phone": "6383213129",
       "email": "vijayb@bowandbaan.com",
-      "dateOfBirth": "2024-04-18",
+      "dateOfBirth": "2002-11-10",
       "gender": "male",
-      "bloodGroup": "b+ve",
+      "bloodGroup": "o+ve",
       "pinCode": "123456",
       "residentialAddress": "address",
       "state": "tamilnadu",
